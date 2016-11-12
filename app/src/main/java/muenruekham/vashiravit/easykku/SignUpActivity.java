@@ -132,7 +132,11 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Find path of Image
             imagePathString = myFindPath(uri);
-            Log.d("12novV1", "imagePath"+ imagePathString);
+            Log.d("12novV1", "Image Path : "+ imagePathString);
+
+            // Find Name Of Image
+            imageNameString = imagePathString.substring(imagePathString.lastIndexOf("/"));
+            Log.d("12novV1", "Image Name : " + imageNameString);
 
 
 
