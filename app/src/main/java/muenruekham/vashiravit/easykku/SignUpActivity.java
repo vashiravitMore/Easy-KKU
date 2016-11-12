@@ -63,17 +63,41 @@ public class SignUpActivity extends AppCompatActivity {
                             "มีช่องว่าง",
                             "กรุณากรองให้ครบทุกช่อง");
                     myAlert.myDialog();
-
-
                 }
+
+            } // onClick
+        });
+
+        // Image Controller
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT); // ไปทำงานที่โปรแกรมอื่น
+                intent.setType("image/*"); // ให้เป็นโปรแกรมที่ทำการดูภาพ
+                startActivityForResult(
+                        intent.createChooser(intent, "โปรดเลือกแอปดูภาพ"),
+                        0 );  // 0 คือตัวเลือกรูปภาพ
 
 
             } // onClick
         });
 
-
-
-
     } // Main Method
 
+    @Override //  onActivityResult จากการกด Ctrl + o
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 0) && (resultCode == RESULT_OK)) {
+
+            Log.d("12novV1", "Result OK");
+
+        } // if
+
+
+
+    }
 } // Main Class
