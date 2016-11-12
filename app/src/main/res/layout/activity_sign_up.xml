@@ -1,13 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_up"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
+    android:padding="16dp"
     tools:context="muenruekham.vashiravit.easykku.SignUpActivity">
 
-</RelativeLayout>
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/h1"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="Sign Up"
+        />
+
+    <LinearLayout
+        android:padding="@dimen/h2"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1" >
+
+        <ImageView
+            android:id="@+id/imgViewProfile"
+            android:src="@drawable/no_image"
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
+            />
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_marginBottom="16dp"
+                android:hint="Name :"
+                android:textSize="@dimen/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:inputType="phone"
+                android:layout_marginBottom="16dp"
+                android:hint="Phone :"
+                android:textSize="@dimen/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/edtUser"
+                android:layout_marginBottom="16dp"
+                android:hint="User :"
+                android:textSize="@dimen/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:inputType="text"
+                android:layout_marginBottom="16dp"
+                android:hint="Password :"
+                android:textSize="@dimen/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_gravity="center"
+        android:text="Sign Up"
+        android:padding="@dimen/h2"
+        android:textSize="@dimen/h2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
