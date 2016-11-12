@@ -58,6 +58,11 @@ public class SignUpActivity extends AppCompatActivity {
                         passwordString.equals("") ) {
                     // Have Space
                     Log.d("12novV1", "Have Space");
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this,
+                            R.drawable.nobita48,
+                            "มีช่องว่าง",
+                            "กรุณากรองให้ครบทุกช่อง");
+                    myAlert.myDialog();
 
 
                 }
