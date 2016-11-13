@@ -2,6 +2,8 @@ package muenruekham.vashiravit.easykku;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ServiceActivity extends AppCompatActivity {
@@ -33,11 +35,24 @@ public class ServiceActivity extends AppCompatActivity {
                 imageStrings);
         listView.setAdapter(myAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //
+                confirmCall(nameStrings[i], phoneStrings[i]);
+
+            } // On Item Click
+
+        });
+
 
 
 
 
     } // main method
+
+    private void confirmCall(String nameString, String phoneString) {
+    }
 
 
 } // Main class
