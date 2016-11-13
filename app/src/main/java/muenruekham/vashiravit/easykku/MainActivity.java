@@ -149,6 +149,18 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT)
                             .show();
 
+                    // Intent to service
+                    Intent intent = new Intent(MainActivity.this,
+                            ServiceActivity.class);
+                    intent.putExtra("Name", nameStrings);
+                    intent.putExtra("Phone", phoneStrings);
+                    intent.putExtra("Image", imageStrings);
+                    startActivity(intent);
+                    finish();
+
+
+
+
 
                 } else {
                     // Password False
