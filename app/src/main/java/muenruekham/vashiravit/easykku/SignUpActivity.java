@@ -1,10 +1,13 @@
 package muenruekham.vashiravit.easykku;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +22,15 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import org.jibble.simpleftp.SimpleFTP;
+
+import java.io.File;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -35,8 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
                 userString,
                 imagePathString,
                 imageNameString;
-
     private Uri uri; // เก็บ uri จาก gallery
+    private Boolean aBoolean = true;
+    private String urlAddUser = "http://swiftcodingthai.com/kku/add_user_vashiravit.php"; // must have protocal
+    private String urlImage = "http://swiftcodingthai.com/kku/Image";
 
 
     /**
@@ -84,7 +98,21 @@ public class SignUpActivity extends AppCompatActivity {
                             "มีช่องว่าง",
                             "กรุณากรองให้ครบทุกช่อง");
                     myAlert.myDialog();
+                } else if (aBoolean) {
+                    // non choose Image
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this,
+                            R.drawable.doremon48,
+                            "ยังไม่เลือกรูป",
+                            "กรุณาเลือกรูปด้วย");
+                    myAlert.myDialog();
+
+                } else {
+                    // Choose Image OK
+                    uploadImageToServer();
+                    uploadStringToServer();
+
                 }
+
 
             } // onClick
         });
@@ -109,6 +137,85 @@ public class SignUpActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     } // Main Method
 
+    private void uploadStringToServer() {
+
+        AddNewUser addNewUser = new AddNewUser(SignUpActivity.this);
+        addNewUser.execute(urlAddUser);
+
+
+
+    } // upload
+
+    // Creat Inner Class
+    private class AddNewUser extends AsyncTask<String, Void, String> {
+
+        // Explicit
+        private Context context;
+
+        public AddNewUser(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormEncodingBuilder()
+                        .add("isAdd", "true")
+                        .add("Name", nameString)
+                        .add("Phone", phoneString)
+                        .add("User", userString)
+                        .add("Password", passwordString)
+                        .add("Image", imageNameString)
+                        .build();
+                Request.Builder builder = new Request.Builder();  // กำหนด หน้าซอง
+                Request request = builder.url(strings[0]).post(requestBody).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string(); //////
+
+            } catch (Exception e) {
+                Log.d("13novV1", "e doIn : " + e.toString());
+            }
+            return null;
+        }// doInBack พยายามต่ออินเตอร์เน็ต
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.d("13novV1", "Result : " + s); // สิ่งที่ได้จาก body
+        }
+    } // AddNewUser Class
+
+
+    private void uploadImageToServer() {
+
+        // Change Policy
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        try {
+            SimpleFTP simpleFTP = new SimpleFTP();
+            simpleFTP.connect("ftp.swiftcodingthai.com",
+                    21,
+                    "kku@swiftcodingthai.com",
+                    "Abc12345");
+            simpleFTP.bin();
+            simpleFTP.cwd("Image"); //path name to Image upload
+            simpleFTP.stor(new File(imagePathString));
+            simpleFTP.disconnect();
+
+        } catch (Exception e) {
+            Log.d("12novV1", "e simple :" + e.toString());
+
+        }
+
+    } // Upload
+
+
     @Override //  onActivityResult จากการกด Ctrl + o
     protected void onActivityResult(int requestCode,
                                     int resultCode,
@@ -116,6 +223,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == 0) && (resultCode == RESULT_OK)) {
+            aBoolean = false;
 
             Log.d("12novV1", "Result OK");
 
@@ -137,6 +245,8 @@ public class SignUpActivity extends AppCompatActivity {
             // Find Name Of Image
             imageNameString = imagePathString.substring(imagePathString.lastIndexOf("/"));
             Log.d("12novV1", "Image Name : " + imageNameString);
+
+
 
 
 
