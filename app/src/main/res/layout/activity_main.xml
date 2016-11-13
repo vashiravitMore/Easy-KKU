@@ -2,22 +2,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
+    android:layout_weight="1"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="muenruekham.vashiravit.easykku.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="486dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logokku"
+            android:layout_width="200dp"
+            android:layout_height="320dp" />
+
+        <EditText
+            android:maxLines="1"
+            android:inputType="text"
+            android:textSize="@dimen/h2"
+            android:id="@+id/edtUser"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:hint="User :"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:textSize="@dimen/h2"
+            android:id="@+id/edtPassword"
+            android:layout_margin="10dp"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:hint="Password :"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="33dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:weightSum="1">
+        >
 
         <Button
             android:layout_gravity="bottom"

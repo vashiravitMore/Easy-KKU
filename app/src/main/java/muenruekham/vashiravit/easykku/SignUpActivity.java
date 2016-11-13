@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -186,6 +187,15 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             Log.d("13novV1", "Result : " + s); // สิ่งที่ได้จาก body
+            if (Boolean.parseBoolean(s)) {
+                Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(context, "Cannot Upload Success", Toast.LENGTH_SHORT).show();
+            }
+
+
+
         }
     } // AddNewUser Class
 
